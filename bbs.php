@@ -7,7 +7,6 @@ $password='';
 $dbh = new PDO($dsn, $user, $password);
 $dbh ->query('SET NAMES utf8');
 
-
 if(!empty($_POST)){
     //2.SQL文を実行する
     // WHEREはどういう条件か
@@ -16,7 +15,7 @@ $nickname = htmlspecialchars($_POST['nickname']);
 $comment =  htmlspecialchars($_POST['comment']);
 
 
-date_default_timezone_set('Asia/Tokyo');
+date_default_timezone_set('Asia/Manila');
 echo date("Y/m/d - M (D) H:i:s");
 if (!($nickname == "" || $comment == "") ){
 
@@ -35,9 +34,33 @@ $sql = 'INSERT INTO `posts`(`nickname`,`comment`,`created`)VALUES (?,?,?)';
 }
 
 }
+?>
 
+<?php
+
+//2.SQL文を実行する
+// OREDR BYはDESCで降順、ASCで昇順
+$sql = 'SELECT* FROM posts ORDER BY created DESC';
+$stmt = $dbh->prepare($sql);
+$stmt->execute();
+
+$comments = array();
+while (1) {
+  // データを一件ずつ取得
+    $rec = $stmt ->fetch(PDO::FETCH_ASSOC);
+    if ($rec == false){
+        break;
+    }
+    // 配列に追加
+    $comments[] = $rec;
+
+
+}
+// データベースを切断する
 $dbh = null;
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -108,18 +131,22 @@ $dbh = null;
       <!-- 画面右側 -->
       <div class="col-md-8 content-margin-top">
         <div class="timeline-centered">
-          <article class="timeline-entry">
-              <div class="timeline-entry-inner">
-                  <div class="timeline-icon bg-success">
-                      <i class="entypo-feather"></i>
-                      <i class="fa fa-cogs"></i>
-                  </div>
-                  <div class="timeline-label">
-                      <h2><a href="#">seedくん</a> <span>2016-01-20</span></h2>
-                      <p>つぶやいたコメント</p>
-                  </div>
+
+          <?php foreach ($comments as $comment): ?>
+           <article class="timeline-entry">
+            <div class="timeline-entry-inner">
+              <div class="timeline-icon bg-success">
+                <i class="entypo-feather"></i>
+                <i class="fa fa-cogs"></i>
+              </div>
+              <div class="timeline-label">
+                <h2><a href="#"><?php echo $comment['nickname'] ?></a> <span><?php echo $comment['created'] ?></span></h2>
+                <p><?php echo $comment['comment'] ?></p>
+
+              </div>
               </div>
           </article>
+          <?php endforeach; ?>
 
           <article class="timeline-entry begin">
               <div class="timeline-entry-inner">

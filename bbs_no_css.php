@@ -21,7 +21,7 @@ $nickname = htmlspecialchars($_POST['nickname']);
 $comment =  htmlspecialchars($_POST['comment']);
 
 
-date_default_timezone_set('Asia/Tokyo');
+date_default_timezone_set('Asia/Manila');
 echo date("Y/m/d - M (D) H:i:s");
 if (!($nickname == "" || $comment == "") ){
 
