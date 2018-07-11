@@ -17,9 +17,9 @@ if(!empty($_POST)){
     // WHEREはどういう条件か
 $nickname = htmlspecialchars($_POST['nickname']);
 $comment =  htmlspecialchars($_POST['comment']);
-$date = new DateTime('2017-08-22 23:44:44');
-echo $date->format('Y年m月d日 H時i分s秒');
 
+date_default_timezone_set('Asia/Tokyo');
+echo date("Y/m/d - M (D) H:i:s");
 if (!($nickname == "" || $comment == "") ){
 
 $sql = 'INSERT INTO `posts`(`nickname`,`comment`)VALUES (?,?)';
