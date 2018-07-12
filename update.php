@@ -11,6 +11,8 @@
     $dbh = new PDO($dsn, $user, $password);
     $dbh ->query('SET NAMES utf8');
 
+
+
     $nickname = $_POST['nickname'];
     $comment = $_POST['comment'];
     $id = $_POST['id'];
