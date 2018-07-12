@@ -1,18 +1,18 @@
 <?php
-  // ここにDBに接続する処理を記述する
-$dsn = 'mysql:dbname=oneline_bbs;host=localhost';
-// 変数定義
-$user = 'root';
-$password='';
-$dbh = new PDO($dsn, $user, $password);
-$dbh ->query('SET NAMES utf8');
+    // ここにDBに接続する処理を記述する
+    $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
+    // 変数定義
+    $user = 'root';
+    $password='';
+    $dbh = new PDO($dsn, $user, $password);
+    $dbh ->query('SET NAMES utf8');
 
-if(!empty($_POST)){
-    //2.SQL文を実行する
-    // WHEREはどういう条件か
-    // 定義しなくても使える変数　スーパーグローバル変数
-$nickname = htmlspecialchars($_POST['nickname']);
-$comment =  htmlspecialchars($_POST['comment']);
+      if(!empty($_POST)){
+        //2.SQL文を実行する
+        // WHEREはどういう条件か
+        // 定義しなくても使える変数　スーパーグローバル変数
+        $nickname = htmlspecialchars($_POST['nickname']);
+        $comment =  htmlspecialchars($_POST['comment']);
 
 
 date_default_timezone_set('Asia/Manila');
@@ -144,7 +144,9 @@ $dbh = null;
                   <a href="#"><?php echo $comment['nickname'] ?></a>
                    <span><?php echo $comment['created'] ?></span>
                    <!-- hrefはactionと同じでどこのサイトに飛ばすか -->
-                   <a href="delete.php?id= <?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+                   <a href="edit.php?id=<?php echo $comment["id"]; ?>" class="btn btn-success" style="color: white">編集</a>
+                   <a href="delete.php?id=<?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+
 
                    <a href=""></a>
                 </h2>
