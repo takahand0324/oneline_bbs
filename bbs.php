@@ -1,5 +1,5 @@
 <?php
-  // ここにDBに登録する処理を記述する
+  // ここにDBに接続する処理を記述する
 $dsn = 'mysql:dbname=oneline_bbs;host=localhost';
 // 変数定義
 $user = 'root';
@@ -140,7 +140,14 @@ $dbh = null;
                 <i class="fa fa-cogs"></i>
               </div>
               <div class="timeline-label">
-                <h2><a href="#"><?php echo $comment['nickname'] ?></a> <span><?php echo $comment['created'] ?></span></h2>
+                <h2>
+                  <a href="#"><?php echo $comment['nickname'] ?></a>
+                   <span><?php echo $comment['created'] ?></span>
+                   <!-- hrefはactionと同じでどこのサイトに飛ばすか -->
+                   <a href="delete.php?id= <?php echo $comment["id"]; ?>" class="btn btn-danger" style="color: white">削除</a>
+
+                   <a href=""></a>
+                </h2>
                 <p><?php echo $comment['comment'] ?></p>
 
               </div>
